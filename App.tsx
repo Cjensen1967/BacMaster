@@ -146,10 +146,37 @@ const App: React.FC = () => {
     synth.playDeal();
   };
 
+  // WebAudio will not reliably start until a user gesture occurs.
+  // If a user previously accepted the disclaimer, we may skip the welcome screen,
+  // which means `synth.init()` never runs and sound will never play.
+  //
+  // This ensures that *any* first user interaction after acceptance initializes/resumes audio.
+  useEffect(() => {
+    if (!hasAcceptedDisclaimer) return;
+
+    const initOnGesture = () => {
+      synth.init();
+    };
+
+    // Capture so this runs before React's onClick handlers.
+    window.addEventListener('pointerdown', initOnGesture, { capture: true, once: true, passive: true });
+    window.addEventListener('keydown', initOnGesture, { capture: true, once: true });
+
+    return () => {
+      window.removeEventListener('pointerdown', initOnGesture, true);
+      window.removeEventListener('keydown', initOnGesture, true);
+    };
+  }, [hasAcceptedDisclaimer]);
+
   const toggleMute = () => {
     const newMuted = !isMuted;
     setIsMuted(newMuted);
     localStorage.setItem('baccarat_trainer_muted', String(newMuted));
+
+    // Unmuting is a user gesture, so it's a safe time to ensure the AudioContext exists/resumed.
+    if (!newMuted) {
+      synth.init();
+    }
   };
 
   const startNewHand = useCallback((shouldResetStats = false) => {
