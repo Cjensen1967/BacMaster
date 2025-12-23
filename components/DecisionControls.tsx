@@ -109,7 +109,7 @@ const DecisionControls: React.FC<DecisionControlsProps> = ({ phase, onDecision, 
   };
 
   return (
-    <div className="w-full flex justify-center p-2 sm:p-4 bg-black/40 backdrop-blur-sm border-t border-white/10 mt-auto z-10 sticky bottom-0 shrink-0">
+    <div className="w-full flex justify-center p-2 sm:p-4 bg-black/40 backdrop-blur-sm border-t border-white/10 mt-auto z-10 shrink-0 fixed sm:sticky bottom-0 left-0 right-0 pb-[env(safe-area-inset-bottom)]">
       {renderContent()}
     </div>
   );

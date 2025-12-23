@@ -391,7 +391,7 @@ const App: React.FC = () => {
   if (hasAcceptedDisclaimer === null) return <div className="h-full bg-gray-950" />;
 
   return (
-    <div className="flex flex-col h-full bg-gray-950 font-sans overflow-hidden">
+    <div className="flex flex-col min-h-[100dvh] bg-gray-950 font-sans">
       {!hasAcceptedDisclaimer && <WelcomeScreen onAccept={handleAcceptDisclaimer} />}
 
       <header className="bg-black/80 backdrop-blur-xl border-b border-white/5 p-1 sm:p-4 z-50 shrink-0 shadow-2xl">
@@ -449,7 +449,7 @@ const App: React.FC = () => {
         {gameState.feedback.message || "Training Session Active"}
       </div>
 
-      <main className="flex-1 relative flex flex-col landscape:flex-row lg:flex-row items-center justify-center gap-1 landscape:gap-4 lg:gap-12 p-2 overflow-hidden">
+      <main className="flex-1 relative flex flex-col landscape:flex-row lg:flex-row items-center justify-center gap-1 landscape:gap-4 lg:gap-12 p-2 overflow-hidden pb-28 sm:pb-0">
         <div className="absolute inset-0 bg-felt opacity-100 z-0 min-h-full">
              <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/felt.png')] opacity-30 mix-blend-overlay"></div>
              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/60"></div>
